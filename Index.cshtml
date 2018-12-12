@@ -1,0 +1,632 @@
+﻿@model PureSurveyProjectTracker.Models.ViewModels.ProjectsModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container1">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-horizontal">         
+            <h2 class="mainHeading1">PROJECT TRACKER</h2>
+            <div style="padding-top:0px; padding-bottom:0px; padding-left:40px; color:#004187; font-weight:bold" onclick="">
+                @Html.ActionLink("Dashboard", "Index", "Home")
+            </div>
+            <hr style="padding-bottom:0px" />
+            <table style="padding-top:0px">
+                    <tr>
+                        <td>
+                            <div style="padding-top:0px; padding-left:1150px; color:#569bbe; font-weight:bold" onclick="">
+                                @Html.ActionLink("Logout", "LogIn", "Account", new {  }, new { onclick = "Logout();" } )
+                            </div>
+                        </td>
+                    </tr>
+            </table>            
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" style="color:#ffffff; text-align: center; margin-left:30%; padding-bottom:0px">
+                <div class="col-md-10">
+                    <table>
+                        <tr>
+                            <td style="padding-left:5px">
+                                @Html.EditorFor(model => model.searchValue, new { htmlAttributes = new { id = "txtSearch", @class = "form-control", placeholder = "enter project name" } })
+                            </td>
+                            <td>
+                                <span><i class="glyphicon glyphicon-eye-open" style="color:#ffffff; padding-left:5px; width:100%"></i></span>
+                            </td>
+                            <td>
+                                <span><input type="button" id="searchButton" style="width:100%; color:#ffffff; background-color:#004187; color:#ffffff; background-color:#004187;" name="search" value="SEARCH PROJECT" class="btn btn-default" onclick="Search()" /></span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="form-group" style="color:#ffffff; padding-top:0px; padding-bottom:0px">
+                <div class="col-md-10">
+                    <table>
+                        <tr>
+                            <td style="padding-left:5px">
+                                <span><i class="glyphicon glyphicon-plus-sign" style="color:#ffffff; padding-left:5px; width:100%"></i></span>
+                            </td>
+                            <td>
+                                @*<span><input type="button" id="addButton" style="width:100%;" name="addnew" value="ADD NEW" class="btn btn-default" data-toggle="modal" data-target="#dialog-Add" data-backdrop="static" data-keyboard="false" /></span>*@
+                                <button id="addprojectmodal" class="btn btn-default" style="width:100%;  color:#ffffff; background-color:#004187; border:none" onclick="CallModal();return false;">ADD NEW PROJECT</button>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div style="padding-top:0px" id="table">
+                @Html.Partial("_tablePartial")
+            </div>
+        </div>
+        //
+        <div id="dialog-Add" class="dialog-Add">
+             @Html.HiddenFor(m => m.UserId)                        
+        </div>
+        //
+        <div id="dialog-View" style="display:none; margin-top:5%; background-color:#569bbe;">
+            @*<div id="dialog-Add" class="modal fade" tabindex="-1" title="ADD PROJECT" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-left:35%; margin-top:5%">*@
+        </div>
+        //
+        <div id="dialog-EditView" style="display:none; margin-top:5%; background-color:#569bbe;">
+            @*<div id="dialog-Add" class="modal fade" tabindex="-1" title="ADD PROJECT" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="margin-left:35%; margin-top:5%">*@
+        </div>
+    }
+</div>
+@section scripts{
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                AlertMessage($('.container1'), '@ViewBag.Message');
+            });
+        </script>
+    }
+    <script type="text/javascript">
+
+        ///Logout
+        function Logout() {
+            var userId = $("#UserId").val();
+
+            $.ajax({
+                url: "@Url.Content("~/Home/LogOut")",
+                datatype: "html",
+                data: { userId: userId },
+                type: "POST",
+                cache: false,
+                success:function (data) {
+                    $("#loginpage").html(data);
+                },
+                //alert("Loged out successfully"),
+                error: function () {
+                //alert("Content load failed.")
+            }
+        });
+        };
+        ////
+
+        ////Sorting section
+        function LoadTableData(headervalue, _userId, sortDirection) {
+            var userId = _userId;
+            //var userId = $("#UserId").val();
+            var _headerValue = headervalue;
+
+            var sortDirection = sortDirection;
+
+            $.ajax({
+                url: "@Url.Content("~/Home/sortTable")",
+                datatype: "html",
+                data: { userId: userId, _headerValue: _headerValue, sortDirection: sortDirection },
+            type: "POST",
+            cache: false,
+            success: function (data) {
+                $("#table").html(data);
+            },
+            error: function () {
+                alert("Content load failed.");
+            }
+        });
+        };
+
+        ///Searching section
+        function Search() {
+
+            var _searchValue = $("#txtSearch").val();
+            var userId = $("#UserId").val();
+            //
+            $.ajax({
+                url: "@Url.Content("~/Home/searchTable")",
+                datatype: "html",
+                data: { userId: userId, _searchValue: _searchValue },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        };
+        ///Clearing Fields Section
+        function Cancel() {
+            $("#txtPname").val("");
+            $("#txtCname").val("");
+            $("#lstPM").val(0);
+            $("#lstDev").val(0);
+            $("#lstDesgn").val(0);
+            $("#lstPtype").val(0);
+            $("#lstPstatus").val(0);
+            $("#txtPUrl").val("");
+            $("#txtPDb").val("");
+            $("#txtPServer").val("");
+            $("#lstPPlan").val(0);
+            $("#dialog-Add").dialog("close");
+            $("#dialog-View").dialog("close");
+        };
+        function Close() {
+            $("#dialog-View").dialog("close");
+        };
+        function CloseEdit() {
+            $("#dialog-EditView").dialog("close");
+        };
+
+        ///AddProject Section
+        function Addproject() {
+            //Obtain values
+            //Fields
+            var _Message = "";
+            var userId = $("#UserId").val();
+            var pName = $("#txtPname").val();
+            var pClient = $("#txtCname").val();
+            var pManager = $("#lstPM :selected").text();
+            var pDeveloper = $("#lstDev :selected").text();
+            var pDesigner = $("#lstDesgn :selected").text();
+            var pType = $("#lstPtype :selected").text();
+            var pStatus = $("#lstPstatus :selected").text();
+            var pUrl = $("#txtPUrl").val();
+            var pDb = $("#txtPDb").val();
+            var pServer = $("#txtPServer").val();
+            var pBPlan = $("#lstPPlan :selected").text();
+            var pCost = $("#txtPCost").val();
+            //Search
+            var searchValue = $("#txtSearch").val();
+            //Buttons
+            var btnAddProject = $("#btnAddProject").val();
+            var btnCancel = $("#btnCancel").val();
+
+            var errorMessages = "";
+
+            if (pName == false) {
+                //errorMessages += "Please provide Project Name!";
+                alert("Please provide Project Name!");
+            }
+            else if (pClient == false) {
+                //errorMessages += "Please provide Client Name!";
+                alert("Please provide Client Name!");
+            }
+            else if (pManager == false) {
+                //errorMessages += "Please provide Project Manager Name!";
+                alert("Please provide Project Manager Name!");
+            }
+            else if (pDeveloper == false) {
+                //errorMessages += "Please provide Developer Name !";
+                alert("Please provide Developer Name!");
+            }
+            else if (pDesigner == false) {
+                //errorMessages += "Please provide Designer Name !";
+                alert("Please provide Designer Name!");
+            }
+            else if (pType == false) {
+                //errorMessages += "Please provide Project Type !";
+                alert("Please provide Project Type!");
+            }
+            else if (pStatus == false) {
+                //errorMessages += "Please provide Project Status !";
+                alert("Please provide Project Status!");
+            }
+            else if (pCost == false) {
+                //errorMessages += "Please provide BackUp Plan !";
+                alert("Please provide Cost!");
+            }
+            else if (pBPlan == false) {
+                //errorMessages += "Please provide BackUp Plan !";
+                alert("Please provide BackUp Plan!");
+            }
+            else {
+                //Clear fields
+                $("#txtPname").val("");
+                $("#txtCname").val("");
+                $("#lstPM").val(0);
+                $("#lstDev").val(0);
+                $("#lstDesgn").val(0);
+                $("#lstPtype").val(0);
+                $("#lstPstatus").val(0);
+                $("#txtPUrl").val("");
+                $("#txtPDb").val("");
+                $("#txtPServer").val("");
+                $("#lstPPlan").val(0);
+                $("#txtPCost").val("");
+                $.ajax({
+                    url: "@Url.Content("~/Home/AddProject")",
+                    datatype: "html",
+                    data: { UserId: userId, btnAddProject: btnAddProject, btnCancel: btnCancel, pName: pName, pClient: pClient, pManager: pManager, pDeveloper: pDeveloper, pDesigner: pDesigner, pType: pType, pStatus: pStatus, pUrl: pUrl, pDb: pDb, pServer: pServer, pBplan: pBPlan, pCost: pCost },
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+                        $("#table").html(data);
+                        //_Message = viewBag.Message;
+                        //alert(_Message);
+                        alert("Project added succesfully");
+                    },
+                    error: function () {
+                        //_Message = viewBag.Message;
+                        //alert(_Message);
+                        alert("Content load failed.");
+                    }
+                });
+                $("#dialog-Add").dialog("close");
+            }
+        };
+        ///SaveChanges Section
+        function SaveEditproject(_pID) {
+
+                ////Obtain values
+            var data = $("#EditViewPartial").serialize();
+            //var pname = $("#txtPnameEdit").val();
+                //Clear fields
+                $("#txtPname").val("");
+                $("#txtCname").val("");
+                $("#lstPM").val(0);
+                $("#lstDev").val(0);
+                $("#lstDesgn").val(0);
+                $("#lstPtype").val(0);
+                $("#lstPstatus").val(0);
+                $("#txtPUrl").val("");
+                $("#txtPDb").val("");
+                $("#txtPServer").val("");
+                $("#lstPPlan").val(0);
+                $("#txtPCost").val("");
+               
+                $.ajax({
+                    url: "@Url.Content("~/Home/SaveEditProject")",
+                    datatype: "html",
+                    data:data,                     
+                    type: "POST",
+                    cache: false,
+                    success: function (data) {
+
+                    if (data.isValid)
+                    {
+                        $("#table").html(data.view);
+                        alert("Changes saved succesfully");
+                        $("#dialog-EditView").dialog("close");
+                    }
+                    else
+                    {
+                        $("#dialog-EditView").html(data.view);
+                    }
+                },
+                error: function () {
+                    //_Message = viewBag.Message;
+                    //alert(_Message);
+                    alert("Content load failed.");
+                }
+            });
+        //}
+        };
+///Modals Section
+        function CallModal() {
+            //Reset List boxes
+            $("#lstPMtype").val(0);
+            $("#lstPtype").val(0);
+            $("#lstPstatus").val(0);
+            $("#lstPPlan").val(0);
+            //addprojectmodal
+            dialog = $("#dialog-Add").dialog({
+                autoOpen: false,
+                height: 615,
+                width: 880,
+                modal: true,
+                open: function (event, ui) {
+                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                    ///Ajax
+                    var userId = $("#UserId").val();
+                    $.ajax({
+                        url: "@Url.Content("~/Home/LoadAddViewListboxes")",
+                        datatype: "html",
+                        data: { userId: userId },
+                        type: "POST",
+                        cache: false,
+                        success: function (data) {
+                            $("#dialog-Add").html(data);
+                        //alert(" Items per page updated successfully");
+                    },
+                    error: function () {
+                        //alert("Content load failed.")
+                    }
+                });
+                    ///Ajax
+                }
+            });
+
+            dialog.dialog("open");
+            form = dialog.find("Form").on("submit", function (event) {
+                event.preventDefault();
+                //addUser();
+            });
+        };
+
+        function CallViewModal(_pID) {
+
+            dialog = $("#dialog-View").dialog({
+                autoOpen: false,
+                height: 610,
+                width: 850,
+                modal: true,
+                open: function (event, ui) {
+                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                   
+                    ////Ajax
+                    var _projectId = _pID;
+                    $.ajax({
+                        url: "@Url.Content("~/Home/ProjectCostView")",
+                        datatype: "html",
+                        data: { _projectId: _projectId },
+                        type: "POST",
+                        cache: false,
+                        success: function (data) {
+                            $("#dialog-View").html(data);
+                            //alert(" Items per page updated successfully");
+                        },
+                        error: function () {
+                            //alert("Content load failed.")
+                        }
+                    });
+                    ////Ajax
+                }
+            });
+
+            dialog.dialog("open");
+            form = dialog.find("form").on("submit", function (event) {
+                event.preventDefault();
+                //addUser();
+            });
+        };
+
+        function CallEditModalView(_pID, userId) {
+
+            dialog = $("#dialog-EditView").dialog({
+                autoOpen: false,
+                height: 660,
+                width: 850,
+                modal: true,
+                open: function (event, ui) {
+                    $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+                   
+                    ////Ajax                    
+                    $.ajax({
+                        url: "@Url.Content("~/Home/EditProjectView")",
+                        datatype: "html",
+                        data: { _projectId: _pID, _userId: userId },
+                        type: "POST",
+                        cache: false,
+                        success: function (data) {
+                            $("#dialog-EditView").html(data);
+                            //alert(" Items per page updated successfully");
+                        },
+                        error: function () {
+                        //alert("Content load failed.")
+                        }
+                    });
+                ////Ajax
+            }
+        });
+
+        dialog.dialog("open");
+        form = dialog.find("form").on("submit", function (event) {
+            event.preventDefault();
+            //addUser();
+        });
+        };
+
+///Update Listboxes onChange section
+
+        function UpdatePM(_projectId) {
+            var userId = $("#UserId").val();
+            var _SelectedIndex = _projectId;
+            var _SelectedValue = $("#pmlst" + _SelectedIndex).val();
+            //UpdatePage("Updatepm", "pmlst", _projectId, _userId);
+            $.ajax({
+                url: "@Url.Content("~/Home/Updatepm")",
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    alert("Updated successfully");
+            },
+            error: function (er, et, ec) {
+            }
+            });
+        };
+
+        function UpdateDev(_projectId) {
+            var userId = $("#UserId").val();
+            var _SelectedIndex = _projectId;
+            var _SelectedValue = $("#devlst" + _SelectedIndex).val();
+            //UpdatePage("UpdateDev", "devlst", _projectId, _userId);
+            $.ajax({
+                url: "@Url.Content("~/Home/UpdateDev")",
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    alert("Updated successfully");
+            },
+            error: function (er, et, ec) {
+            }
+        });
+
+        };
+
+        function UpdateDesgn(_projectId) {
+            var userId = $("#UserId").val();
+            var _SelectedIndex = _projectId;
+            var _SelectedValue = $("#desgnslst" + _SelectedIndex).val();
+            //UpdatePage("UpdateDesgn", "desgnslst", _projectId, _userId);
+            $.ajax({
+                url: "@Url.Content("~/Home/UpdateDesgn")",
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    alert("Updated successfully");
+            },
+            error: function (er, et, ec) {
+            }
+        });
+        };
+
+        function UpdateType(_projectId) {
+            var userId = $("#UserId").val();
+            var _SelectedIndex = _projectId;
+            var _SelectedValue = $("#typelst" + _SelectedIndex).val();
+            //UpdatePage("UpdateType", "typelst", _projectId, _userId);
+            $.ajax({
+                url: "@Url.Content("~/Home/UpdateType")",
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    alert("Updated successfully");
+            },
+            error: function (er, et, ec) {
+            }
+        });
+            
+        };
+
+        function UpdateStatus(_projectId) {
+            var userId = $("#UserId").val();
+            var _SelectedIndex = _projectId;
+            var _SelectedValue = $("#statuslst" + _SelectedIndex).val();
+            //UpdatePage("UpdateStatus", "statuslst", _projectId, _userId);
+            $.ajax({
+                url: "@Url.Content("~/Home/UpdateStatus")",
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    alert("Updated successfully");
+            },
+            error: function (er, et, ec) {
+            }
+        });
+        };
+
+        function UpdateBackUp(_projectId) {
+            var userId = $("#UserId").val();
+            var _SelectedIndex = _projectId;
+            var _SelectedValue = $("#bckuplanlst" + _SelectedIndex).val();
+            //UpdatePage("UpdateBackup", "bckuplanlst", _projectId, _userId);
+            $.ajax({
+                url: "@Url.Content("~/Home/UpdateBackup")",
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    alert("Updated successfully");
+                },
+                error: function (er, et, ec) {
+                }
+            });
+        };
+
+        @*function UpdatePage(Method, valueSelector, projectId, _userId)
+        {
+            var _SelectedIndex = projectId;
+            var _SelectedValue = $("#" + valueSelector + projectId).val();
+            var userId = _userId;
+            //
+            $.ajax({
+                url: @Url.Content("~/Home/" + Method),
+                datatype: "html",
+                data: { _SelectedValue: _SelectedValue, _SelectedIndex: _SelectedIndex, userId: userId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                $("#table").html(data);
+                alert("Updated successfully");
+            },
+            error: function (er, et, ec) {
+            }
+        });
+        }*@
+///Paging SEction
+        function Nextpage(_pageNO) {
+            var _userId = $("#UserId").val();
+            Paging(_pageNO += 1, _userId);
+        };
+
+        function Backpage(_pageNO) {
+            var _userId = $("#UserId").val();
+            Paging(_pageNO -= 1, _userId);
+        };
+
+        function Paging(_pageNO, userId) {
+            var _UserId = userId;
+            var _sortValue = $("#SortDirection").val();
+            var _element = $("#SortItem").val();
+            $.ajax({
+                url: "@Url.Content("~/Home/Paging")",
+                datatype: "html",
+                data: { _pageNO: _pageNO, _sortValue: _sortValue, _element: _element, _UserId: _UserId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    return true;
+                },
+                error: function () {
+                }
+            });
+        }
+///Items Per Page Section
+        function UpdateItemsperPage() {
+            var _UserId = $("#UserId").val();
+            var newitemsperpage = $("#itemsperpage").val();
+            //var _SelectedValue = $("#itemsperpage").val();
+            //
+            $.ajax({
+                url: "@Url.Content("~/Home/itemsperpage")",
+                datatype: "html",
+                data: { newitemsperpage: newitemsperpage, _UserId: _UserId },
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    $("#table").html(data);
+                    //alert(" Items per page updated successfully");
+                },
+                error: function () {
+                    //alert("Content load failed.")
+                }
+            });
+        };
+    </script>
+}

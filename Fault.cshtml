@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Fault";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container1">
+      <div>          
+         @using (Html.BeginForm())
+             {
+                 <fieldset style="padding-left:40px; text-align:center">
+                        <h2 style="color:#004187">AN ERROR HAS OCCURRED</h2>
+                        <div style="text-align:left; color:#004187">
+                            Please click @Html.ActionLink("here", "LogIn", "Account") to login.
+                        </div>
+                        <br>
+                        <div style="text-align:left;  color:#004187">
+                            If you have any concerns, please contact support at <u><b><a href="mailto:support@puresurvey.co.za" target="_top">support@puresurvey.co.za</a></b></u>
+                        </div>
+                        <br>
+                        <br>
+                 </fieldset>
+              }
+       </div>
+</div>
+

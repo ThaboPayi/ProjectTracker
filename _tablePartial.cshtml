@@ -1,0 +1,116 @@
+﻿@model PureSurveyProjectTracker.Models.ViewModels.ProjectsModel
+@using PureSurveyProjectTracker.Helpers
+    @{
+        var _projectNo = 0;
+    }
+@*<div class="container1">*@
+@Html.HiddenFor(m => m.SortItem)
+@Html.HiddenFor(m => m.SortDirection)
+    @using (Html.BeginForm())
+    {
+        <table id="myTable " class="table table-striped table-bordered" cellspacing="0" style="width:100%; color:#004187; padding-top:0px">
+            <thead>
+                <tr>
+                    <td style="width:4%"></td>
+                    <td style="width:10%">NO@*<span><i id="tableheader2icon1" value="2" class="glyphicon glyphicon-arrow-down" name="pNo" style="color:#ffffff; padding-left:2px; width:13px" onclick="LoadTableData(1"></i></span><span><i id="tableheader13icon2" value="13" class="glyphicon glyphicon-arrow-up" name="pNoup" style="color:#ffffff; padding-left:2px; width:5px" onclick="LoadTableData(9); return false;"></i></span>*@</td>
+                    <td style="width:25%">NAME
+                    <span>
+                        <i id="tableheader3icon1" value="3" class="glyphicon glyphicon-arrow-down" name="pName" style="color:#ffffff; padding-left:2px; width:10px" onclick="LoadTableData('@SortItems.Name', '@Model.UserId', '@SortDirection.Ascending'); return false;"></i>
+                    </span>
+                    <span>
+                        <i id="tableheader14icon2" value="14" class="glyphicon glyphicon-arrow-up" name="pNameup" style="color:#ffffff; padding-left:2px; width:3px" onclick="LoadTableData('@SortItems.Name', '@Model.UserId', '@SortDirection.Descending'); return false;"></i>
+                    </span></td>
+                    <td style="width:25%">CLIENT
+                    <span>
+                        <i id="tableheader4icon1" value="4" class="glyphicon glyphicon-arrow-down" name="pClient" style="color:#ffffff; padding-left:2px; width:10px" onclick="LoadTableData('@SortItems.Client', '@Model.UserId', '@SortDirection.Ascending'); return false;"></i>
+                    </span>
+                    <span>
+                        <i id="tableheader15icon2" value="15" class="glyphicon glyphicon-arrow-up" name="pClientup" style="color:#ffffff; padding-left:2px; width:3px" onclick="LoadTableData('@SortItems.Client', '@Model.UserId', '@SortDirection.Descending'); return false;"></i>
+                    </span></td>
+                    <td style="width:10%">MANAGER@*<span><i id="tableheader5icon1" value="5" class="glyphicon glyphicon-arrow-down" name="pManager" style="color:#ffffff; padding-left:2px; width:10px" onclick="MasterFunction(); return false;"></i></span><span><i id="tableheader16icon2" value="16" class="glyphicon glyphicon-arrow-up" name="pManagerup" style="color:#ffffff; padding-left:2px; width:3px" onclick="MasterFunction(); return false;"></i></span>*@</td>
+                    <td style="width:10%">DEVELOPER@*<span><i id="tableheader6icon1" value="6" class="glyphicon glyphicon-arrow-down" name="pDeveloper" style="color:#ffffff; padding-left:2px; width:10px" onclick="MasterFunction(); return false;"></i></span><span><i id="tableheader17icon2" value="17" class="glyphicon glyphicon-arrow-up" name="pDeveloperup" style="color:#ffffff; padding-left:2px; width:3px" onclick="MasterFunction(); return false;"></i></span>*@</td>
+                    <td style="width:10%">DESIGNER@*<span><i id="tableheader7icon1" value="7" class="glyphicon glyphicon-arrow-down" name="pDesigner" style="color:#ffffff; padding-left:2px; width:10px" onclick="MasterFunction(); return false;"></i></span><span><i id="tableheader18icon2" value="18" class="glyphicon glyphicon-arrow-up" name="pDesignerup" style="color:#ffffff; padding-left:2px; width:3px" onclick="MasterFunction(); return false;"></i></span>*@</td>
+                    <td style="width:4.5%">TYPE</td>
+                    <td style="width:4.5%">STATUS</td>
+                    <td style="width:4.5%">BACKUP_PLAN</td>
+                    <td style="width:4%">VALUE</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.CampaignItems)
+                {
+                    <tr>
+                        <td style="text-wrap:normal">
+                            <button id="editprojectmodal" class="btn btn-default" style="width:100%;  color:#ffffff; background-color:#004187; border:none" onclick="CallEditModalView('@item._projectId', '@item.UserId');return false;">EDIT</button>
+                        </td>                                 
+                        <td style="text-wrap:normal !important"> 
+                            @Html.HiddenFor(m => m._projectId) 
+                            <div style="width:15px">                     
+                                @(++_projectNo)
+                            </div>
+                        </td>
+                        <td style="text-wrap:normal">
+                            <a href="#" class="back ctrlbtn" id="viewprojectcost" onclick="CallViewModal('@item._projectId');return false;" style="color:#004187">@Html.DisplayFor(modelItem => item.ProjectName)</a>
+                            @*<a href="#" class="back ctrlbtn" id="viewprojectcost" onclick="UpdateType('" + @item._projectId + "',this);return false;" style="color:#569bbe">@Html.DisplayFor(modelItem => item.ProjectName)</a>*@
+                            @*@Html.DisplayFor(modelItem => item.ProjectName)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ClientName)
+                        </td>
+                        <td style="text-wrap:normal">
+                            @Html.DropDownListFor(model => item.ProjectManager, new SelectList(Model.PMs, item.ProjectManager), "Select", new { @class = "ddl", id = "pmlst" + @item._projectId + "", style = "width: 100px;height:25px", onchange = "UpdatePM('" + @item._projectId + "',this);return false;" })
+                            @*@Html.DisplayFor(modelItem => item.ProjectManager)*@
+                        </td>
+                        <td style="text-wrap:normal">
+                            @Html.DropDownListFor(model => item.Developer, new SelectList(Model.Devs, item.Developer), "Select", new { @class = "ddl", id = "devlst" + @item._projectId + "", style = "width: 110px;height:25px", onchange = "UpdateDev('" + @item._projectId + "',this);return false;" })
+                        </td>
+                        <td style="text-wrap:normal">
+                            @Html.DropDownListFor(model => item.Designer, new SelectList(Model.Desgns, item.Designer), "Select", new { @class = "ddl", id = "desgnslst" + @item._projectId + "", style = "width: 100px;height:25px", onchange = "UpdateDesgn('" + @item._projectId + "',this);return false;" })
+                        </td>
+                        <td style="text-wrap:normal">
+                            @*@Html.DropDownListFor(model => model..Answer, new SelectList(Model.Questions[i].Options, "LikertText", "LikertValue"), "Please Select", new { @class = "ddl" })*@
+                            @Html.DropDownListFor(model => item.ProjectType, new SelectList(Model.Types, item.ProjectType), "Select", new { @class = "ddl", id= "typelst"+@item._projectId+"" , style = "width: 100px;height:25px", onchange="UpdateType('" + @item._projectId + "',this);return false;" })
+                        </td>
+                        <td style="text-wrap:normal">
+                            @Html.DropDownListFor(model => item.Status, new SelectList(Model.Statuses, item.Status), "Select", new { @class = "ddl", id= "statuslst"+ @item._projectId+"", style = "width: 100px;height:25px", onchange = "UpdateStatus('" + @item._projectId + "',this);return false;" })
+                        </td>
+                        <td style="text-wrap:normal">
+                            @Html.DropDownListFor(model => item.BackUp, new SelectList(Model.BackUpOptions, item.BackUp), "Select", new { @class = "ddl", id= "bckuplanlst"+ @item._projectId+"", style = "width: 80px;height:25px", onchange = "UpdateBackUp('" + @item._projectId + "',this);return false;" })
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectValue)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="border:none" colspan="10">
+                        <table class="paging">
+                            <tr style="border:none">
+                                <td style="width: 50px; border:none; padding-left:100px">                                
+                                    @if (Model.PageNo > 1)
+                                    {
+                                        <a href="#" class="back ctrlbtn" onclick="Backpage(@Model.PageNo); return false;"><span style="font-weight:bold">Back</span></a>
+                                        @*<a href="#" class="back ctrlbtn" onclick="Backpage('@Model.PageNo','@Model.sortValue');return false;">Back</a>*@
+                                    }
+                                </td>
+                                <td class="center" style="border:none">@Model.PageNo of @(Model.NoPages == 0 ? 1 : Model.NoPages) @Html.Raw("Page" + (Model.NoPages > 1 ? "s" : "")) <input type="submit" value="Save" class="btn btn-default" style="display: none;" /></td>
+                                <td style="width: 150px; border:none">
+                                    @if (Model.PageNo != Model.NoPages && Model.NoPages > 0)
+                                    {
+                                        <a href="#" class="next ctrlbtn" onclick="Nextpage(@Model.PageNo);return false;"><span style="font-weight:bold">Next</span></a>
+                                        @*<a href="#" class="next ctrlbtn" onclick="Nextpage(@Model.PageNo, @Model.sortValue, @Model.sortingElement);return false;">Next</a>*@
+                                    }
+                                </td>
+                                <td style="text-align: right; background: transparent; color:#004187; border:none" colspan="10">
+                                    No. items per page @Html.DropDownListFor(model => model.ItemsPerPage, new SelectList(new List<int> { 10, 20, 50 }, Model.ItemsPerPage), new { @class = "ddl noitems", id = "itemsperpage", onchange = "UpdateItemsperPage()" })
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    }
+

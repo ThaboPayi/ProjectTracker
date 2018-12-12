@@ -1,0 +1,185 @@
+﻿@model PureSurveyProjectTracker.Models.ViewModels.AddModalView
+
+<form id="AddViewPartial">
+    <fieldset>
+        @Html.HiddenFor(m => m._projectId)
+        @Html.HiddenFor(m => m.UserId)
+        <div class="addwindowheader"><strong>ADD PROJECT</strong></div>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group" style="color:#ffffff; padding-left:15px">
+                        @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="padding-left:80px; width:260px">
+                            @Html.EditorFor(model => Model.ProjectName, new { htmlAttributes = new { id = "txtPname", @class = "form-control", @Value = "" + Model.ProjectName + "" } })
+                        </div>
+                    </div>
+                    <div class="addtdprojectnameerror">
+                        @Html.ValidationMessageFor(model => Model.ProjectName, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td style="vertical-align:top; padding-left:70px">
+                    <div class="form-group" style="color:#ffffff; padding-left:20px">
+                        @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="width:250px; padding-left:66px">
+                            @Html.DropDownListFor(model => Model.Status, new SelectList(Model.Statuses, Model.Status), "Select", new { @class = "form-control", id = "lstPstatus", style = "width: 160px;height:33px" })
+                        </div>
+                    </div>
+                    <div class="addtdstatuserror">
+                        @Html.ValidationMessageFor(model => Model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group" style="color:#ffffff; padding-left:15px">
+                        @Html.LabelFor(model => model.ClientName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="padding-left:82px; width:260px">
+                            @Html.EditorFor(model => model.ClientName, new { htmlAttributes = new { id = "txtCname", @class = "form-control", @Value = "" + Model.ClientName + "" } })
+                        </div>
+                    </div>
+                    <div class="addtdclienterro">
+                        @Html.ValidationMessageFor(model => Model.ClientName, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td style="vertical-align:top; padding-left:70px">
+                    <div class="form-group" style="color:#ffffff; padding-left:28px">
+                        @Html.LabelFor(model => model.URL, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="width:245px;  padding-left:67px">
+                            @Html.EditorFor(model => model.URL, new { htmlAttributes = new { id = "txtPUrl", @class = "form-control", @Value = "" + Model.URL + "" } })
+                        </div>
+                    </div>
+                    @*<div style="padding-left:110px">
+                            @Html.ValidationMessageFor(model => Model.URL, "", new { @class = "text-danger" })
+                        </div>*@
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td style="vertical-align:top">
+                    <div class="form-group" style="color:#ffffff; padding-left:13px">
+                        @Html.LabelFor(model => model.ProjectManager, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="padding-left:83px; width:250px">
+                            @Html.DropDownListFor(model => Model.ProjectManager, new SelectList(Model.PMs, Model.ProjectManager), "Select", new { @class = "form-control", id = "lstPM", style = "width: 160px;height:33px" })
+                        </div>
+                    </div>
+                    <div class="addtdprojectmanagererror">
+                        @Html.ValidationMessageFor(model => Model.ProjectManager, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td style="vertical-align:top; padding-left:76px">
+                    <div class="form-group" style="color:#ffffff; padding-left: 9px">
+                        @Html.LabelFor(model => model.ProjectDB, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="width:237px; padding-left:59px">
+                            @Html.EditorFor(model => model.ProjectDB, new { htmlAttributes = new { id = "txtPDb", @class = "form-control", @Value = "" + Model.ProjectDB + "" } })
+                        </div>
+                    </div>
+                    @*<div style="padding-left:110px">
+                            @Html.ValidationMessageFor(model => Model.ProjectDB, "", new { @class = "text-danger" })
+                        </div>*@
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td style="vertical-align:top">
+                    <div class="form-group" style="color:#ffffff; padding-left:15px">
+                        @Html.LabelFor(model => model.Developer, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="padding-left:85px; width:250px">
+                            @Html.DropDownListFor(model => Model.Developer, new SelectList(Model.Devs, Model.Developer), "Select", new { @class = "form-control", id = "lstDev", style = "width: 160px;height:33px" })
+                        </div>
+                    </div>
+                    <div class="addtddevelopererror">
+                        @Html.ValidationMessageFor(model => Model.Developer, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td style="vertical-align:top; padding-left:100px">
+                    <div class="form-group" style="color:#ffffff; padding-left: 20px">
+                        @Html.LabelFor(model => model.ProjectServer, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="width:233px; padding-left:57px">
+                            @Html.EditorFor(model => model.ProjectServer, new { htmlAttributes = new { id = "txtPServer", @class = "form-control", @Value = "" + Model.ProjectServer + "" } })
+                        </div>
+                    </div>
+                    @*<div style="padding-left:110px">
+                            @Html.ValidationMessageFor(model => Model.ProjectServer, "", new { @class = "text-danger" })
+                        </div>*@
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td>
+                    <div class="form-group" style="color:#ffffff; padding-left:15px">
+                        @Html.LabelFor(model => model.Designer, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="padding-left:85px; width:250px">
+                            @Html.DropDownListFor(model => Model.Designer, new SelectList(Model.Desgns, Model.Designer), "Select", new { @class = "form-control", id = "lstDesgn", style = "width: 160px;height:33px" })
+                        </div>
+                    </div>
+                    <div class="addtddesignererror">
+                        @Html.ValidationMessageFor(model => Model.Designer, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td style="vertical-align:top; padding-left:132px">
+                    <div class="form-group" style="color:#ffffff">
+                        @Html.LabelFor(model => model.BackUp, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="width:250px; padding-left:58px">
+                            @Html.DropDownListFor(model => Model.BackUp, new SelectList(Model.BackUpOptions, Model.BackUp), "Select", new { @class = "form-control", id = "lstPPlan", style = "width: 160px;height:33px" })
+                        </div>
+                    </div>
+                    <div class="addtdbackuperror">
+                        @Html.ValidationMessageFor(model => Model.BackUp, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <table>
+            <tr>
+                <td style="vertical-align:top; padding-left:15px">
+                    <div class="form-group" style="color:#ffffff">
+                        @Html.LabelFor(model => model.ProjectType, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="padding-left:85px; width:250px">
+                            @Html.DropDownListFor(model => Model.ProjectType, new SelectList(Model.Types, Model.ProjectType), "Select", new { @class = "form-control", id = "lstPtype", style = "width: 160px;height:33px" })
+                        </div>
+                    </div>
+                    <div class="addtdptypeerror">
+                        @Html.ValidationMessageFor(model => Model.ProjectType, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td style="vertical-align:top; padding-left:110px">
+                    <div class="form-group" style="color:#ffffff">
+                        @Html.LabelFor(model => model.Project_Value, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10" style="width:234px; padding-left:56px">
+                            @Html.EditorFor(model => model.Project_Value, new { htmlAttributes = new { id = "txtPCost", @class = "form-control", @Value = "" + Model.Project_Value + "" } })
+                        </div>
+                    </div>
+                    <div class="addtdpvalueerror">
+                        @Html.ValidationMessageFor(model => Model.Project_Value, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <br>
+        <div class="modal-footer" style="text-align:center; padding-left:350px">
+            <table style="text-align:center;">
+                <tr>
+                    <td style="width:100px">
+                        <input type="button" id="btnAddProject" class="btn btn-default" name="addproject" value="ADD" style="width:100%; background-color:#004187" onclick="Addproject(); return false;" />
+                    </td>
+                    <td style="padding-left:20px; width:110px">
+                        <input type="button" id="btnCancel" class="btn btn-default" name="cancel" value="CANCEL" style="width:100%; background-color:#004187" onclick="Cancel(); return false;" data-dissmiss="modal" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </fieldset>
+</form>

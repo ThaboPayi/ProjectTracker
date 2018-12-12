@@ -1,0 +1,80 @@
+﻿<!Doctype html>
+<html lang="en">
+@model PureSurveyProjectTracker.Models.ViewModels.UserSignUpView
+@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<body>
+
+    <div class="container1">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h2 style="text-align:left; padding-left:40px; padding-top:10px; color: #004187">Register</h2>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group" style="color:#ffffff">
+                    @Html.LabelFor(model => model.LoginName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LoginName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LoginName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="color:#ffffff">
+                    @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="color:#ffffff">
+                    @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="color:#ffffff">
+                    @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="color:#ffffff">
+                    @Html.LabelFor(model => model.Gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.Gender, new List<SelectListItem> {
+                    new SelectListItem { Text="Male", Value="M" },
+                    new SelectListItem { Text="Female", Value="F" }
+                }, new { @Class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Register" class="btn btn-default" style="background-color:#004187" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div style="padding-left:40px; padding-bottom: 15px; font-weight:bold">
+            @Html.ActionLink("Back to login", "LogIn", "Account")
+        </div>
+    </div>
+</body>
+</html>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+

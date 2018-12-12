@@ -1,0 +1,526 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PureSurveyProjectTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BackUpPlan">
+          <Key>
+            <PropertyRef Name="BackUpId" />
+          </Key>
+          <Property Name="BackUpId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BackUpDescription" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Designer">
+          <Key>
+            <PropertyRef Name="DesignerId" />
+          </Key>
+          <Property Name="DesignerId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DesignerName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DesignerEmail" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Developer">
+          <Key>
+            <PropertyRef Name="DeveloperId" />
+          </Key>
+          <Property Name="DeveloperId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DevName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DevEmail" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PM">
+          <Key>
+            <PropertyRef Name="PMid" />
+          </Key>
+          <Property Name="PMid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PMname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PMemail" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_ID" />
+          </Key>
+          <Property Name="Project_ID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ClientName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProjectManager" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Developer" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Designer" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProjectTypeDescription" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="URL" Type="varchar" MaxLength="300" />
+          <Property Name="ProjectDB" Type="varchar" MaxLength="100" />
+          <Property Name="ProjectServer" Type="varchar" MaxLength="100" />
+          <Property Name="BackUpPlan" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProjectCost" Type="float" />
+          <Property Name="DateCreated" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StatusDescription" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSUser">
+          <Key>
+            <PropertyRef Name="SYSUserID" />
+          </Key>
+          <Property Name="SYSUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LoginName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PasswordEncryptedText" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="RowCreatedSYSUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RowCreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="RowModifiedSYSUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RowModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SYSUserProfile">
+          <Key>
+            <PropertyRef Name="SYSUSERProfileID" />
+          </Key>
+          <Property Name="SYSUSERProfileID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SYSUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="RowCreatedSYSUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RowCreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="RowModifiedSYSUserID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RowModifiedDateTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TypeDescription" Type="varchar" MaxLength="300" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserProject">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ProjectId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__SYSUserPr__SYSUs__2B3F6F97">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1" />
+          <End Role="SYSUserProfile" Type="Self.SYSUserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="SYSUserProfile">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProject_Project_ProjectId">
+          <End Role="Project" Type="Self.Project" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProject" Type="Self.UserProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Project_ID" />
+            </Principal>
+            <Dependent Role="UserProject">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserProject_User_UserId">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserProject" Type="Self.UserProject" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="UserProject">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRole_Roles_RoleId">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserRoles_User_UserId">
+          <End Role="SYSUser" Type="Self.SYSUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="UserRole">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PureSurveyProjectTrackerModelStoreContainer">
+          <EntitySet Name="BackUpPlan" EntityType="Self.BackUpPlan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designer" EntityType="Self.Designer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Developer" EntityType="Self.Developer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PM" EntityType="Self.PM" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYSUser" EntityType="Self.SYSUser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SYSUserProfile" EntityType="Self.SYSUserProfile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserProject" EntityType="Self.UserProject" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__SYSUserPr__SYSUs__2B3F6F97" Association="Self.FK__SYSUserPr__SYSUs__2B3F6F97">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="SYSUserProfile" EntitySet="SYSUserProfile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProject_Project_ProjectId" Association="Self.FK_UserProject_Project_ProjectId">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="UserProject" EntitySet="UserProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserProject_User_UserId" Association="Self.FK_UserProject_User_UserId">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="UserProject" EntitySet="UserProject" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRole_Roles_RoleId" Association="Self.FK_UserRole_Roles_RoleId">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserRoles_User_UserId" Association="Self.FK_UserRoles_User_UserId">
+            <End Role="SYSUser" EntitySet="SYSUser" />
+            <End Role="UserRole" EntitySet="UserRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PureSurveyProjectTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="PureSurveyProjectTrackerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="SYSUsers" EntityType="PureSurveyProjectTrackerModel.SYSUser" />
+          <EntitySet Name="SYSUserProfiles" EntityType="PureSurveyProjectTrackerModel.SYSUserProfile" />
+          <AssociationSet Name="FK__SYSUserPr__SYSUs__2B3F6F97" Association="PureSurveyProjectTrackerModel.FK__SYSUserPr__SYSUs__2B3F6F97">
+            <End Role="SYSUser" EntitySet="SYSUsers" />
+            <End Role="SYSUserProfile" EntitySet="SYSUserProfiles" />
+          </AssociationSet>
+          <EntitySet Name="BackUpPlans" EntityType="PureSurveyProjectTrackerModel.BackUpPlan" />
+          <EntitySet Name="Status" EntityType="PureSurveyProjectTrackerModel.Status" />
+          <EntitySet Name="Types" EntityType="PureSurveyProjectTrackerModel.Type" />
+          <EntitySet Name="PMs" EntityType="PureSurveyProjectTrackerModel.PM" />
+          <EntitySet Name="Designers" EntityType="PureSurveyProjectTrackerModel.Designer" />
+          <EntitySet Name="Developers" EntityType="PureSurveyProjectTrackerModel.Developer" />
+          <EntitySet Name="Projects" EntityType="PureSurveyProjectTrackerModel.Project" />
+          <EntitySet Name="Roles" EntityType="PureSurveyProjectTrackerModel.Role" />
+          <AssociationSet Name="UserRole" Association="PureSurveyProjectTrackerModel.UserRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="SYSUser" EntitySet="SYSUsers" />
+          </AssociationSet>
+          <AssociationSet Name="UserProject" Association="PureSurveyProjectTrackerModel.UserProject">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="SYSUser" EntitySet="SYSUsers" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="SYSUser">
+          <Key>
+            <PropertyRef Name="SYSUserID" />
+          </Key>
+          <Property Name="SYSUserID" Type="Guid" Nullable="false" />
+          <Property Name="LoginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordEncryptedText" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RowCreatedSYSUserID" Type="Guid" Nullable="false" />
+          <Property Name="RowCreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RowModifiedSYSUserID" Type="Guid" Nullable="false" />
+          <Property Name="RowModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYSUserProfiles" Relationship="PureSurveyProjectTrackerModel.FK__SYSUserPr__SYSUs__2B3F6F97" FromRole="SYSUser" ToRole="SYSUserProfile" />
+          <NavigationProperty Name="Roles" Relationship="PureSurveyProjectTrackerModel.UserRole" FromRole="SYSUser" ToRole="Role" />
+          <NavigationProperty Name="Projects" Relationship="PureSurveyProjectTrackerModel.UserProject" FromRole="SYSUser" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="SYSUserProfile">
+          <Key>
+            <PropertyRef Name="SYSUSERProfileID" />
+          </Key>
+          <Property Name="SYSUSERProfileID" Type="Guid" Nullable="false" />
+          <Property Name="SYSUserID" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="RowCreatedSYSUserID" Type="Guid" Nullable="false" />
+          <Property Name="RowCreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RowModifiedSYSUserID" Type="Guid" Nullable="false" />
+          <Property Name="RowModifiedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="SYSUser" Relationship="PureSurveyProjectTrackerModel.FK__SYSUserPr__SYSUs__2B3F6F97" FromRole="SYSUserProfile" ToRole="SYSUser" />
+        </EntityType>
+        <Association Name="FK__SYSUserPr__SYSUs__2B3F6F97">
+          <End Type="PureSurveyProjectTrackerModel.SYSUser" Role="SYSUser" Multiplicity="1" />
+          <End Type="PureSurveyProjectTrackerModel.SYSUserProfile" Role="SYSUserProfile" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SYSUser">
+              <PropertyRef Name="SYSUserID" />
+            </Principal>
+            <Dependent Role="SYSUserProfile">
+              <PropertyRef Name="SYSUserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="BackUpPlan">
+          <Key>
+            <PropertyRef Name="BackUpId" />
+          </Key>
+          <Property Name="BackUpId" Type="Guid" Nullable="false" />
+          <Property Name="BackUpDescription" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Guid" Nullable="false" />
+          <Property Name="StatusDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeID" />
+          </Key>
+          <Property Name="TypeID" Type="Guid" Nullable="false" />
+          <Property Name="TypeDescription" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="PM">
+          <Key>
+            <PropertyRef Name="PMid" />
+          </Key>
+          <Property Name="PMid" Type="Guid" Nullable="false" />
+          <Property Name="PMname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PMemail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Designer">
+          <Key>
+            <PropertyRef Name="DesignerId" />
+          </Key>
+          <Property Name="DesignerId" Type="Guid" Nullable="false" />
+          <Property Name="DesignerName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DesignerEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Developer">
+          <Key>
+            <PropertyRef Name="DeveloperId" />
+          </Key>
+          <Property Name="DeveloperId" Type="Guid" Nullable="false" />
+          <Property Name="DevName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DevEmail" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Project_ID" />
+          </Key>
+          <Property Name="Project_ID" Type="Guid" Nullable="false" />
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ClientName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectManager" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Developer" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Designer" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectTypeDescription" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="URL" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectDB" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectServer" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="BackUpPlan" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectCost" Type="Double" />
+          <NavigationProperty Name="SYSUsers" Relationship="PureSurveyProjectTrackerModel.UserProject" FromRole="Project" ToRole="SYSUser" />
+          <Property Name="DateCreated" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SYSUsers" Relationship="PureSurveyProjectTrackerModel.UserRole" FromRole="Role" ToRole="SYSUser" />
+        </EntityType>
+        <Association Name="UserRole">
+          <End Type="PureSurveyProjectTrackerModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="PureSurveyProjectTrackerModel.SYSUser" Role="SYSUser" Multiplicity="*" />
+        </Association>
+        <Association Name="UserProject">
+          <End Type="PureSurveyProjectTrackerModel.Project" Role="Project" Multiplicity="*" />
+          <End Type="PureSurveyProjectTrackerModel.SYSUser" Role="SYSUser" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PureSurveyProjectTrackerModelStoreContainer" CdmEntityContainer="PureSurveyProjectTrackerEntities">
+          <EntitySetMapping Name="SYSUsers">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.SYSUser">
+              <MappingFragment StoreEntitySet="SYSUser">
+                <ScalarProperty Name="RowModifiedDateTime" ColumnName="RowModifiedDateTime" />
+                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
+                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
+                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
+                <ScalarProperty Name="PasswordEncryptedText" ColumnName="PasswordEncryptedText" />
+                <ScalarProperty Name="LoginName" ColumnName="LoginName" />
+                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SYSUserProfiles">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.SYSUserProfile">
+              <MappingFragment StoreEntitySet="SYSUserProfile">
+                <ScalarProperty Name="RowModifiedDateTime" ColumnName="RowModifiedDateTime" />
+                <ScalarProperty Name="RowModifiedSYSUserID" ColumnName="RowModifiedSYSUserID" />
+                <ScalarProperty Name="RowCreatedDateTime" ColumnName="RowCreatedDateTime" />
+                <ScalarProperty Name="RowCreatedSYSUserID" ColumnName="RowCreatedSYSUserID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SYSUserID" ColumnName="SYSUserID" />
+                <ScalarProperty Name="SYSUSERProfileID" ColumnName="SYSUSERProfileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BackUpPlans">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.BackUpPlan">
+              <MappingFragment StoreEntitySet="BackUpPlan">
+                <ScalarProperty Name="BackUpDescription" ColumnName="BackUpDescription" />
+                <ScalarProperty Name="BackUpId" ColumnName="BackUpId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="TypeDescription" ColumnName="TypeDescription" />
+                <ScalarProperty Name="TypeID" ColumnName="TypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PMs">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.PM">
+              <MappingFragment StoreEntitySet="PM">
+                <ScalarProperty Name="PMemail" ColumnName="PMemail" />
+                <ScalarProperty Name="PMname" ColumnName="PMname" />
+                <ScalarProperty Name="PMid" ColumnName="PMid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designers">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.Designer">
+              <MappingFragment StoreEntitySet="Designer">
+                <ScalarProperty Name="DesignerEmail" ColumnName="DesignerEmail" />
+                <ScalarProperty Name="DesignerName" ColumnName="DesignerName" />
+                <ScalarProperty Name="DesignerId" ColumnName="DesignerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Developers">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.Developer">
+              <MappingFragment StoreEntitySet="Developer">
+                <ScalarProperty Name="DevEmail" ColumnName="DevEmail" />
+                <ScalarProperty Name="DevName" ColumnName="DevName" />
+                <ScalarProperty Name="DeveloperId" ColumnName="DeveloperId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="ProjectCost" ColumnName="ProjectCost" />
+                <ScalarProperty Name="BackUpPlan" ColumnName="BackUpPlan" />
+                <ScalarProperty Name="ProjectServer" ColumnName="ProjectServer" />
+                <ScalarProperty Name="ProjectDB" ColumnName="ProjectDB" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="ProjectTypeDescription" ColumnName="ProjectTypeDescription" />
+                <ScalarProperty Name="Designer" ColumnName="Designer" />
+                <ScalarProperty Name="Developer" ColumnName="Developer" />
+                <ScalarProperty Name="ProjectManager" ColumnName="ProjectManager" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+                <ScalarProperty Name="Project_ID" ColumnName="Project_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="PureSurveyProjectTrackerModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UserRole" TypeName="PureSurveyProjectTrackerModel.UserRole" StoreEntitySet="UserRole">
+            <EndProperty Name="SYSUser">
+              <ScalarProperty Name="SYSUserID" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="UserProject" TypeName="PureSurveyProjectTrackerModel.UserProject" StoreEntitySet="UserProject">
+            <EndProperty Name="SYSUser">
+              <ScalarProperty Name="SYSUserID" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="Project">
+              <ScalarProperty Name="Project_ID" ColumnName="ProjectId" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

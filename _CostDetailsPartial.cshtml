@@ -1,0 +1,84 @@
+﻿
+@model PureSurveyProjectTracker.Models.ViewModels.CostModalViewModel
+
+<form>
+    <fieldset>
+        <div style="text-align:center; width:100%; height:30px; background-color:#004187; color:#ffffff; padding-top:5px"><strong>Project Details</strong></div>
+        <br>
+        <div style="color:#004187;">
+        <table>
+            <tr>
+                <td style="padding-left:70px"></td>
+                <td class="viewtdPCreated"><div style="border-bottom: solid; color:#004187; font-weight:bold">Project Created:</div></td>
+                <td class="viewtdPCreatedDispalyfor"><div style="border-bottom: solid; color:#004187; font-weight:bold">@Html.DisplayFor(modelItem => Model._Proj_Date_Created)</div></td>
+            </tr>
+        </table>
+        </div>
+        <br>
+        <table>
+            <tr>
+                <td class="viewtdPname">Project Name:</td>
+                <td class="viewtdPnameDispalyfor">@Html.DisplayFor(modelItem => Model._Proj_Name)</td>
+                <td class="viewtdStatus">Project Status:</td>
+                <td class="viewtdStatusDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Status)</td>               
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td class="viewtdCname">Client Name:</td>
+                <td class="viewtdCnameDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Client)</td>
+                <td class="viewtdUrl">Url:</td>
+                <td class="viewtdUrlDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_URl)</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td class="viewtdPmanager">Project Manager:</td>
+                <td class="viewtdPmanagerDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Manager)</td>
+                <td class="viewtdPDb">Project DB:</td>
+                <td class="viewtdPDbDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_DB)</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td class="viewtdDeveloper">Developer:</td>
+                <td class="viewtdDeveloperDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Dev)</td>
+                <td class="viewtdPserver">Project Server:</td>
+                <td class="viewtdPserverDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Server)</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td class="viewtdDesigner">Designer:</td>
+                <td class="viewtdDesignerDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Designer)</td>
+                <td class="viewtdBackup">BackUp Plan:</td>
+                <td class="viewtdBackupDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Backup_Plan)</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <table>
+            <tr>
+                <td class="viewtdPtype">Project Type:</td>
+                <td class="viewtdPtypeDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Type)</td>
+                <td class="viewtdPvalue">Project Value:</td>
+                <td class="viewtdPvalueDisplayfor">@Html.DisplayFor(modelItem => Model._Proj_Value)</td>
+            </tr>
+        </table>
+        <br>
+        <br>
+        <div style="text-align:center">
+            <input type="button" id="btnCancel2" class="btn btn-default" name="cancel2" value="EXIT" style="width:30%; text-align:center; background-color:#004187" onclick="Close()" data-dissmiss="modal" />
+            @*<input type="submit" id="btnCancel2" class="btn btn-default" name="cancel2" value="CANCEL" style="width:30%; text-align:center" onclick="Cancel()" data-dissmiss="modal" />*@
+        </div>
+        <br>
+    </fieldset>
+</form>

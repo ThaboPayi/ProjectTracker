@@ -1,0 +1,269 @@
+﻿.modal {
+    display: block;
+    position: absolute!important;
+    background-color:#004187;
+    color:#569bbe;
+    text-align:left;
+    height: 82%;
+    width: 28%;
+    overflow-y:auto;
+    overflow-x:auto;
+    border-radius: 0px;
+}
+/*.container1 {
+    color: #
+}*/
+.glyphicon {
+    cursor:pointer;
+}
+.alert {
+    position:absolute;
+    z-index:100;    
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;    
+    top:25%;
+    left: 50%;
+    -webkit-transform: translate(-50%, 10%);
+    transform: translate(-50%, 10%);
+    color: #ffffff;
+    background-color: #569bbe;
+    border-color: #eed3d7;
+}
+/*.linkonabutton {
+    font-size:10pt; 
+    color:white; 
+    background-color:#569bbe; 
+    height:40px; 
+    width:50%; 
+    vertical-align: middle;
+    border:none;
+}*/
+input[type="submit"] {
+    font-size:10pt; 
+    color:white; 
+    background-color:#569bbe; 
+    height:40px; 
+    width:10%; 
+    vertical-align: middle;
+    border:none;
+}
+input[type="button"] {
+    font-size:10pt; 
+    color:white; 
+    background-color:#569bbe; 
+    height:40px; 
+    width:10%; 
+    vertical-align: middle;
+    border:none;
+}
+.toolbar {
+    height: 5px;
+   -webkit-border-radius: 0px 0px 5px 5px;
+  border-radius: 0px 0px 5px 5px;
+  -webkit-box-shadow: 0px 1px 3px 1px #888;
+  -moz-box-shadow: 0px 1px 3px 1px #888;
+  box-shadow: 0px 1px 3px 1px #888;
+  border: solid 1px #808080;
+}
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 200px;
+}
+.container1 {
+    background-color: #569bbe;
+    width: 86.9%;
+}
+.mainHeading1 {
+    text-align:left; 
+    padding-left:40px; 
+    padding-top:10px; 
+    color: #004187
+}
+.dialog-Add {
+    display:none; 
+    margin-top:5%; 
+    background-color:#569bbe;
+}
+.tdprojectnameerror {
+    padding-left:160px;
+}
+.tdstatus {
+    vertical-align:top; 
+    padding-left:78px;
+}
+.tdstatuserror {
+    padding-left:140px;
+}
+.clienterror {
+    padding-left:160px;
+}
+.tdurl {
+    vertical-align:top; 
+    padding-left:78px;
+}
+.tdpmerror {
+    padding-left:160px;
+}
+.tddeveloper {
+    vertical-align:top;
+}
+.tddevelopererror {
+    padding-left:160px;
+}
+.tdprojectserver {
+    vertical-align:top; 
+    padding-left:100px;
+}
+.tdbackup {
+    vertical-align:top; 
+    padding-left:130px;
+}
+.tdbackuperror {
+    padding-left:111px;
+}
+.tdptypeerror {
+    padding-left:110px;
+}
+.tdpvalue {
+    vertical-align:top; 
+    padding-left:110px;
+}
+.tdpvalueerror {
+    padding-left:110px
+}
+.addwindowheader {
+    text-align:center; 
+    width:100%; height:30px; 
+    background-color:#004187; 
+    color:#ffffff; 
+    padding-top:5px;
+}
+.addtdprojectnameerror {
+    padding-left:160px;
+}
+.addtdstatuserror {
+    padding-left:140px;
+}
+.addtdclienterro {
+    padding-left:160px;
+}
+.addtdprojectmanagererror {
+    padding-left:160px;
+}
+.addtddevelopererror {
+    padding-left:160px;
+}
+.addtddesignererror {
+    padding-left:160px;
+}
+.addtdbackuperror {
+    padding-left:110px;
+}
+.addtdptypeerror {
+    padding-left:110px;
+}
+.addtdpvalueerror {
+    padding-left:110px;
+}
+.viewtdPCreated {
+    color:#ffffff; padding-left:0px;
+}
+.viewtdPCreatedDispalyfor {
+    color:#004187; padding-left:10px;
+}
+.viewtdPname {
+    color:#ffffff; padding-left:70px;
+}
+.viewtdPnameDispalyfor {
+    color:#004187; padding-left:10px; width:200px;
+}
+.viewtdStatus {
+    color:#ffffff; padding-left:50px;
+}
+.viewtdStatusDisplayfor {
+    color:#004187; padding-left:10px;
+}
+.viewtdCname {
+    color:#ffffff; padding-left:70px;
+}
+.viewtdCnameDisplayfor {
+    color:#004187; padding-left:10px; width:210px;
+}
+.viewtdUrl {
+    color:#ffffff; padding-left:50px;
+}
+.viewtdUrlDisplayfor {
+    color:#004187; padding-left:10px;
+}
+.viewtdPmanager {
+    color:#ffffff; padding-left:70px;
+}
+.viewtdPmanagerDisplayfor {
+    color:#004187; padding-left:10px; width:185px;
+}
+.viewtdPDb {
+    color:#ffffff; padding-left:50px;
+}
+.viewtdPDbDisplayfor {
+    color:#004187; padding-left:10px
+}
+.viewtdDeveloper {
+    color:#ffffff; padding-left:70px;
+}
+.viewtdDeveloperDisplayfor {
+    color:#004187; padding-left:10px; width:223px;
+}
+.viewtdPserver {
+    color:#ffffff; padding-left:50px;
+}
+.viewtdPserverDisplayfor {
+    color:#004187; padding-left:10px
+}
+.viewtdDesigner {
+    color:#ffffff; padding-left:70px;
+}
+.viewtdDesignerDisplayfor {
+    color:#004187; padding-left:10px; width:230px;
+}
+.viewtdBackup {
+    color:#ffffff; padding-left:50px;
+}
+.viewtdBackupDisplayfor {
+    color:#004187; padding-left:10px;
+}
+.viewtdPtype {
+    color:#ffffff; padding-left:70px;
+}
+.viewtdPtypeDisplayfor {
+    color:#004187; padding-left:10px; width:210px;
+}
+.viewtdPvalue {
+    color:#ffffff; padding-left:50px;
+}
+.viewtdPvalueDisplayfor {
+    color:#004187; padding-left:10px;
+}
+
+
