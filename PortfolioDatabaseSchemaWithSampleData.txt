@@ -1,0 +1,345 @@
+USE [master]
+GO
+/****** Object:  Database [PureSurveyProjectTracker]    Script Date: 2019/03/12 15:22:18 ******/
+CREATE DATABASE [PureSurveyProjectTracker]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'PureSurveyProjectTracker', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\PureSurveyProjectTracker.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'PureSurveyProjectTracker_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\PureSurveyProjectTracker_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [PureSurveyProjectTracker].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET RECOVERY FULL 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET  MULTI_USER 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'PureSurveyProjectTracker', N'ON'
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET QUERY_STORE = OFF
+GO
+USE [PureSurveyProjectTracker]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [PureSurveyProjectTracker]
+GO
+/****** Object:  Table [dbo].[BackUpPlan]    Script Date: 2019/03/12 15:22:18 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[BackUpPlan](
+	[BackUpId] [uniqueidentifier] NOT NULL,
+	[BackUpDescription] [varchar](10) NOT NULL,
+ CONSTRAINT [PK_BackUpPlan] PRIMARY KEY CLUSTERED 
+(
+	[BackUpId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[LOOKUPRole]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LOOKUPRole](
+	[LOOKUPRoleID] [uniqueidentifier] NOT NULL,
+	[RoleName] [varchar](100) NOT NULL,
+	[RoleDescription] [varchar](500) NOT NULL,
+	[RowCreatedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowCreatedDateTime] [datetime] NOT NULL,
+	[RowModifiedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowModifiedDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_LOOKUPRole] PRIMARY KEY CLUSTERED 
+(
+	[LOOKUPRoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Project]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Project](
+	[Project_ID] [uniqueidentifier] NOT NULL,
+	[ProjectName] [varchar](100) NOT NULL,
+	[ClientName] [varchar](100) NOT NULL,
+	[ProjectManager] [varchar](100) NOT NULL,
+	[Developer] [varchar](100) NOT NULL,
+	[Designer] [varchar](100) NOT NULL,
+	[ProjectTypeDescription] [varchar](100) NOT NULL,
+	[Status] [varchar](100) NOT NULL,
+	[URL] [varchar](300) NOT NULL,
+	[ProjectDB] [varchar](100) NOT NULL,
+	[ProjectServer] [varchar](100) NOT NULL,
+	[BackUpPlan] [varchar](100) NOT NULL,
+ CONSTRAINT [PK_Project] PRIMARY KEY CLUSTERED 
+(
+	[Project_ID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Status]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Status](
+	[StatusID] [uniqueidentifier] NOT NULL,
+	[StatusDescription] [varchar](100) NOT NULL,
+ CONSTRAINT [PK_Status] PRIMARY KEY CLUSTERED 
+(
+	[StatusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[SYSUser]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SYSUser](
+	[SYSUserID] [uniqueidentifier] NOT NULL,
+	[LoginName] [varchar](50) NOT NULL,
+	[PasswordEncryptedText] [varchar](200) NOT NULL,
+	[RowCreatedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowCreatedDateTime] [datetime] NOT NULL,
+	[RowModifiedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowModifiedDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_SYSUser] PRIMARY KEY CLUSTERED 
+(
+	[SYSUserID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[SYSUserProfile]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SYSUserProfile](
+	[SYSUSERProfileID] [uniqueidentifier] NOT NULL,
+	[SYSUserID] [uniqueidentifier] NOT NULL,
+	[FirstName] [varchar](50) NOT NULL,
+	[LastName] [varchar](50) NOT NULL,
+	[Gender] [char](1) NOT NULL,
+	[RowCreatedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowCreatedDateTime] [datetime] NOT NULL,
+	[RowModifiedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowModifiedDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_SYSUserProfile] PRIMARY KEY CLUSTERED 
+(
+	[SYSUSERProfileID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[SYSUserRole]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[SYSUserRole](
+	[SYSUserRoleID] [uniqueidentifier] NOT NULL,
+	[SYSUserID] [uniqueidentifier] NOT NULL,
+	[LOOKUPRoleID] [uniqueidentifier] NOT NULL,
+	[IsActive] [bit] NOT NULL,
+	[RowCreatedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowCreatedDateTime] [datetime] NOT NULL,
+	[RowModifiedSYSUserID] [uniqueidentifier] NOT NULL,
+	[RowModifiedDateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_SYSUserRole] PRIMARY KEY CLUSTERED 
+(
+	[SYSUserRoleID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Type]    Script Date: 2019/03/12 15:22:19 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Type](
+	[TypeID] [uniqueidentifier] NOT NULL,
+	[TypeDescription] [varchar](300) NOT NULL,
+ CONSTRAINT [PK_Type] PRIMARY KEY CLUSTERED 
+(
+	[TypeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+INSERT [dbo].[BackUpPlan] ([BackUpId], [BackUpDescription]) VALUES (N'e6742d91-b938-4478-ba59-6d1813f184b8', N'Yes')
+GO
+INSERT [dbo].[BackUpPlan] ([BackUpId], [BackUpDescription]) VALUES (N'655dd821-267d-4535-a5fb-e1be8033da66', N'No')
+GO
+INSERT [dbo].[Status] ([StatusID], [StatusDescription]) VALUES (N'3d504936-deee-4ac6-af6d-961a2d001cf7', N'Live')
+GO
+INSERT [dbo].[Status] ([StatusID], [StatusDescription]) VALUES (N'66bd54a7-69e3-4f2e-895b-b892e4163a7f', N'Decommissioned')
+GO
+INSERT [dbo].[Status] ([StatusID], [StatusDescription]) VALUES (N'29317d8b-b86a-436e-aa22-bd1175640005', N'QA')
+GO
+INSERT [dbo].[Status] ([StatusID], [StatusDescription]) VALUES (N'aee5017d-abce-415c-ae5f-d3ddd88b0809', N'Test')
+GO
+INSERT [dbo].[Status] ([StatusID], [StatusDescription]) VALUES (N'74269e86-6438-446b-85b9-e41d5bab1775', N'Development')
+GO
+INSERT [dbo].[SYSUser] ([SYSUserID], [LoginName], [PasswordEncryptedText], [RowCreatedSYSUserID], [RowCreatedDateTime], [RowModifiedSYSUserID], [RowModifiedDateTime]) VALUES (N'd9be13f4-872b-4ab9-85a4-9c1150583bb8', N'Tbo@puresurvey.co.za', N'tbo@pure', N'd9be13f4-872b-4ab9-85a4-9c1150583bb8', CAST(N'2018-01-11T08:06:46.947' AS DateTime), N'd9be13f4-872b-4ab9-85a4-9c1150583bb8', CAST(N'2018-01-11T08:06:46.947' AS DateTime))
+GO
+INSERT [dbo].[SYSUserProfile] ([SYSUSERProfileID], [SYSUserID], [FirstName], [LastName], [Gender], [RowCreatedSYSUserID], [RowCreatedDateTime], [RowModifiedSYSUserID], [RowModifiedDateTime]) VALUES (N'033f568a-bd3e-47da-885b-e72fa2eb70d9', N'd9be13f4-872b-4ab9-85a4-9c1150583bb8', N'Tbo', N'Touch', N'M', N'd9be13f4-872b-4ab9-85a4-9c1150583bb8', CAST(N'2018-01-11T08:06:47.093' AS DateTime), N'd9be13f4-872b-4ab9-85a4-9c1150583bb8', CAST(N'2018-01-11T08:06:47.093' AS DateTime))
+GO
+INSERT [dbo].[Type] ([TypeID], [TypeDescription]) VALUES (N'a87169e4-81cd-4f2a-8713-0c7e93aff4d8', N'Report Tool')
+GO
+INSERT [dbo].[Type] ([TypeID], [TypeDescription]) VALUES (N'037d53a4-ca84-4b85-8760-469daaf8d872', N'Survey')
+GO
+INSERT [dbo].[Type] ([TypeID], [TypeDescription]) VALUES (N'5469be82-ba6d-499e-b04f-99edeb76f108', N'E-Learning')
+GO
+INSERT [dbo].[Type] ([TypeID], [TypeDescription]) VALUES (N'e643a06a-d5f7-4132-8d7f-da958ef5ae6b', N'360 FeedBack')
+GO
+ALTER TABLE [dbo].[BackUpPlan] ADD  CONSTRAINT [DF_BackUpPlan_BackUpId]  DEFAULT (newid()) FOR [BackUpId]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_LOOKUPRoleID]  DEFAULT (newid()) FOR [LOOKUPRoleID]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_RoleName]  DEFAULT ('') FOR [RoleName]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_RoleDescription]  DEFAULT ('') FOR [RoleDescription]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_RowCreatedSYSUserID]  DEFAULT (newid()) FOR [RowCreatedSYSUserID]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_RowCreatedDateTime]  DEFAULT (getdate()) FOR [RowCreatedDateTime]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_RowModifiedSYSUserID]  DEFAULT (newid()) FOR [RowModifiedSYSUserID]
+GO
+ALTER TABLE [dbo].[LOOKUPRole] ADD  CONSTRAINT [DF_LOOKUPRole_RowModifiedDateTime]  DEFAULT (getdate()) FOR [RowModifiedDateTime]
+GO
+ALTER TABLE [dbo].[Status] ADD  CONSTRAINT [DF_Status_StatusID]  DEFAULT (newid()) FOR [StatusID]
+GO
+ALTER TABLE [dbo].[SYSUser] ADD  CONSTRAINT [DF_SYSUser_RowCreatedDateTime]  DEFAULT (getdate()) FOR [RowCreatedDateTime]
+GO
+ALTER TABLE [dbo].[SYSUser] ADD  CONSTRAINT [DF_SYSUser_RowMOdifiedDateTime]  DEFAULT (getdate()) FOR [RowModifiedDateTime]
+GO
+ALTER TABLE [dbo].[SYSUserProfile] ADD  CONSTRAINT [DF_SYSUserProfile_SYSUserID]  DEFAULT (newid()) FOR [SYSUserID]
+GO
+ALTER TABLE [dbo].[SYSUserProfile] ADD  CONSTRAINT [DF_SYSUserProfile_RowCreatedSYSUserID]  DEFAULT (newid()) FOR [RowCreatedSYSUserID]
+GO
+ALTER TABLE [dbo].[SYSUserProfile] ADD  CONSTRAINT [DF_SYSUserProfile_RowCreatedDateTime]  DEFAULT (getdate()) FOR [RowCreatedDateTime]
+GO
+ALTER TABLE [dbo].[SYSUserProfile] ADD  CONSTRAINT [DF_SYSUserProfile_RowModifiedSYSUserID]  DEFAULT (newid()) FOR [RowModifiedSYSUserID]
+GO
+ALTER TABLE [dbo].[SYSUserProfile] ADD  CONSTRAINT [DF_SYSUserProfile_RowModifiedDateTime]  DEFAULT (getdate()) FOR [RowModifiedDateTime]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_SYSUserRoleID]  DEFAULT (newid()) FOR [SYSUserRoleID]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_SYSUserID]  DEFAULT (newid()) FOR [SYSUserID]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_LOOKUPRoleID]  DEFAULT (newid()) FOR [LOOKUPRoleID]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_RowCreatedSYSUserID]  DEFAULT (newid()) FOR [RowCreatedSYSUserID]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_RowCreatedDateTime]  DEFAULT (getdate()) FOR [RowCreatedDateTime]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_RowModifiedSYSUserID]  DEFAULT (newid()) FOR [RowModifiedSYSUserID]
+GO
+ALTER TABLE [dbo].[SYSUserRole] ADD  CONSTRAINT [DF_SYSUserRole_RowModifiedDateTime]  DEFAULT (getdate()) FOR [RowModifiedDateTime]
+GO
+ALTER TABLE [dbo].[Type] ADD  CONSTRAINT [DF_Type_TypeID]  DEFAULT (newid()) FOR [TypeID]
+GO
+ALTER TABLE [dbo].[SYSUserProfile]  WITH CHECK ADD  CONSTRAINT [FK__SYSUserPr__SYSUs__2B3F6F97] FOREIGN KEY([SYSUserID])
+REFERENCES [dbo].[SYSUser] ([SYSUserID])
+GO
+ALTER TABLE [dbo].[SYSUserProfile] CHECK CONSTRAINT [FK__SYSUserPr__SYSUs__2B3F6F97]
+GO
+ALTER TABLE [dbo].[SYSUserRole]  WITH CHECK ADD  CONSTRAINT [FK__SYSUserRo__LOOKU__2C3393D0] FOREIGN KEY([LOOKUPRoleID])
+REFERENCES [dbo].[LOOKUPRole] ([LOOKUPRoleID])
+GO
+ALTER TABLE [dbo].[SYSUserRole] CHECK CONSTRAINT [FK__SYSUserRo__LOOKU__2C3393D0]
+GO
+ALTER TABLE [dbo].[SYSUserRole]  WITH CHECK ADD  CONSTRAINT [FK__SYSUserRo__SYSUs__2D27B809] FOREIGN KEY([SYSUserID])
+REFERENCES [dbo].[SYSUser] ([SYSUserID])
+GO
+ALTER TABLE [dbo].[SYSUserRole] CHECK CONSTRAINT [FK__SYSUserRo__SYSUs__2D27B809]
+GO
+USE [master]
+GO
+ALTER DATABASE [PureSurveyProjectTracker] SET  READ_WRITE 
+GO
